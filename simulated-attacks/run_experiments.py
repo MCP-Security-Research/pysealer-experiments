@@ -10,7 +10,6 @@ def run_command(command, cwd=None):
         return result.stdout
     except subprocess.CalledProcessError as e:
         combined_output = "".join(part for part in [e.stdout, e.stderr] if part)
-        print(f"Error running command: {command}\n{combined_output}")
         return combined_output if combined_output else None
 
 def main():
@@ -44,12 +43,12 @@ def main():
     # Step 4: Run execute scripts to perform attacks
     # this basically simulates the attacker doing their attack after the defender has locked the files
     print("Running execute scripts to perform attacks...")
-    poisoning_exec_output = run_command("python tool-poisoning/execute_tool_poisoning_attack.py", cwd=base_dir)
-    shadowing_exec_output = run_command("python tool-shadowing/execute_tool_shadowing_attack.py", cwd=base_dir)
-    if poisoning_exec_output:
-        print(poisoning_exec_output.strip())
-    if shadowing_exec_output:
-        print(shadowing_exec_output.strip())
+    run_command("python tool-poisoning/execute_tool_poisoning_attack.py", cwd=base_dir)
+    run_command("python tool-shadowing/execute_tool_shadowing_attack.py", cwd=base_dir)
+    # if poisoning_exec_output:
+    #  print(poisoning_exec_output.strip())
+    #if shadowing_exec_output:
+    #  print(shadowing_exec_output.strip())
 
     # Step 5: Run pysealer check on post-attack files
     print("Running pysealer check on post-attack files...")
@@ -62,10 +61,10 @@ def main():
     print("------------------------------------------------")
 
     # Display the content of the files after the attacks
-    print("Contents of tool_poisoning.py after attack:")
-    print(Path(pre_tool_poisoning).read_text())
-    print("Contents of tool_shadowing.py after attack:")
-    print(Path(pre_tool_shadowing).read_text())
+    # print("Contents of tool_poisoning.py after attack:")
+    # print(Path(pre_tool_poisoning).read_text())
+    # print("Contents of tool_shadowing.py after attack:")
+    # print(Path(pre_tool_shadowing).read_text())
 
     # Step 6: Cleanup
     print("Cleaning up...")
