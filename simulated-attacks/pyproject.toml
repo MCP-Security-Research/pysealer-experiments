@@ -1,0 +1,10 @@
+[project]
+name = "pysealer-experiments"
+version = "0.1.0"
+description = "Reproducible pysealer vs mcp-scan experiments for MCP attack patterns"
+readme = "../README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.uv]
+package = false
