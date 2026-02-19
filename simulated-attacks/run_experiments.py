@@ -13,8 +13,8 @@ def run_command(command, cwd=None):
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    pre_tool_poisoning = os.path.join(base_dir, "tool-poisoning", "pre_tool_poisoning.py")
-    pre_tool_shadowing = os.path.join(base_dir, "tool-shadowing", "pre_tool_shadowing.py")
+    pre_tool_poisoning = os.path.join(base_dir, "tool-poisoning", "tool_poisoning.py")
+    pre_tool_shadowing = os.path.join(base_dir, "tool-shadowing", "tool_shadowing.py")
     post_tool_poisoning = os.path.join(base_dir, "tool-poisoning", "post_tool_poisoning.py")
     post_tool_shadowing = os.path.join(base_dir, "tool-shadowing", "post_tool_shadowing.py")
 
