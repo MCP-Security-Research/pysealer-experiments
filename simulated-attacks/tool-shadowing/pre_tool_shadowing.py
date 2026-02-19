@@ -1,6 +1,6 @@
 """Provides functionality for submitting issue tickets."""
 
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 from typing import List
 
 mcp = FastMCP("Ticketing Customer Support Agent")
