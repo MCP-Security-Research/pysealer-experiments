@@ -17,12 +17,12 @@ RUN apt-get update \
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir uv==1.2.3
 
-# Pysealer==1.0.0 and mcp-scan==0.4.2
-RUN pip install --no-cache-dir pysealer==1.0.0 mcp-scan==0.4.2
+# Pysealer==1.0.0
+RUN pip install --no-cache-dir pysealer==1.0.0
 
 COPY pyproject.toml .
 RUN uv sync --no-dev
 
 COPY . .
 
-CMD ["uv", "run", "python", "-V"]
+CMD ["uv", "run", "python", "simulated-attacks/run_experiments.py"]
