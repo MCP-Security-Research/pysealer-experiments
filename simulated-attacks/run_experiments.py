@@ -32,6 +32,10 @@ def main():
     print("Running pysealer check (no changes added)...")
     output_pre_poisoning = run_command(f"pysealer check {pre_tool_poisoning}", cwd=os.path.dirname(pre_tool_poisoning))
     output_pre_shadowing = run_command(f"pysealer check {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
+    print("Output of pysealer check (pre-tool-poisoning):")
+    print(output_pre_poisoning)
+    print("Output of pysealer check (pre-tool-shadowing):")
+    print(output_pre_shadowing)
 
     # Step 4: Run execute scripts to perform attacks
     # this basically simulates the attacker doing their attack after the defender has locked the files
