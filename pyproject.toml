@@ -5,7 +5,6 @@ description = "Reproducible pysealer vs mcp-scan experiments for MCP attack patt
 readme = "../README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "astor"
 ]
 
 [tool.uv]
