@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 import subprocess
 
@@ -24,13 +25,13 @@ def main():
 
     # Step 2: Run pysealer lock
     print("Running pysealer lock...")
-    run_command("pysealer lock", cwd=os.path.dirname(pre_tool_poisoning))
-    run_command("pysealer lock", cwd=os.path.dirname(pre_tool_shadowing))
+    run_command(f"pysealer lock {pre_tool_poisoning}", cwd=os.path.dirname(pre_tool_poisoning))
+    run_command(f"pysealer lock {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
 
     # Step 3: Run pysealer check (no changes added)
     print("Running pysealer check (no changes added)...")
-    output_pre_poisoning = run_command("pysealer check", cwd=os.path.dirname(pre_tool_poisoning))
-    output_pre_shadowing = run_command("pysealer check", cwd=os.path.dirname(pre_tool_shadowing))
+    output_pre_poisoning = run_command(f"pysealer check {pre_tool_poisoning}", cwd=os.path.dirname(pre_tool_poisoning))
+    output_pre_shadowing = run_command(f"pysealer check {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
 
     print("Output of pysealer check (pre-tool-poisoning):")
     print(output_pre_poisoning)
@@ -44,8 +45,8 @@ def main():
 
     # Step 5: Run pysealer check (changes detected)
     print("Running pysealer check (changes detected)...")
-    output_post_poisoning = run_command("pysealer check", cwd=os.path.dirname(pre_tool_poisoning))
-    output_post_shadowing = run_command("pysealer check", cwd=os.path.dirname(pre_tool_shadowing))
+    output_post_poisoning = run_command(f"pysealer check {pre_tool_poisoning}", cwd=os.path.dirname(pre_tool_poisoning))
+    output_post_shadowing = run_command(f"pysealer check {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
 
     print("Output of pysealer check (post-tool-poisoning):")
     print(output_post_poisoning)
