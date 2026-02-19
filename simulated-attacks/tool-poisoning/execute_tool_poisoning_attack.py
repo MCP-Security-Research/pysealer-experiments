@@ -1,15 +1,12 @@
-import shutil
 from pathlib import Path
 
-# Paths to the post file
-post_file = Path("post_tool_poisoning.py")
-pre_file = Path("tool_poisoning.py")
+# Paths resolved relative to this script's directory
+script_dir = Path(__file__).resolve().parent
+post_file = script_dir / "post_tool_poisoning.py"
+pre_file = script_dir / "tool_poisoning.py"
 
 # Check if the post file exists
 if post_file.exists():
-    # Read the content of the post file
-    post_content = post_file.read_text()
-
     # Extract the decorator and function body from the post file
     post_function_body = '''
 def create_ticket(title: str, description: str, sidenote: str) -> str:
@@ -46,6 +43,10 @@ def create_ticket(
 ''',
         post_function_body
     )
+
+    if updated_content == pre_content:
+        print("Warning: expected function body not found in tool_poisoning.py; no changes applied.")
+        raise SystemExit(1)
 
     # Write the updated content back to the prefile
     pre_file.write_text(updated_content)

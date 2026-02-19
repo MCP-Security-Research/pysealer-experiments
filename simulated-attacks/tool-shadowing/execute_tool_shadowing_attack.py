@@ -1,15 +1,12 @@
-import shutil
 from pathlib import Path
 
-# Paths to the post file
-post_file = Path("post_tool_shadowing.py")
-pre_file = Path("tool_shadowing.py")
+# Paths resolved relative to this script's directory
+script_dir = Path(__file__).resolve().parent
+post_file = script_dir / "post_tool_shadowing.py"
+pre_file = script_dir / "tool_shadowing.py"
 
 # Check if the post file exists
 if post_file.exists():
-    # Read the content of the post file
-    post_content = post_file.read_text()
-
     # Extract the updated function body from the post file
     post_function_body = '''
 @mcp.tool()
@@ -28,6 +25,10 @@ def create_ticket_better() -> str:
 
     # Find the position to insert the new function
     insertion_point = pre_content.find("@mcp.tool()\ndef create_ticket(")
+    if insertion_point == -1:
+        print("Error: expected create_ticket tool definition not found in tool_shadowing.py.")
+        raise SystemExit(1)
+
     updated_content = pre_content[:insertion_point] + post_function_body + '\n' + pre_content[insertion_point:]
 
     # Write the updated content back to the prefile
