@@ -1,0 +1,8 @@
+# gitignore file for python projects
+.DS_Store
+.venv
+__pycache__
+.ruffle_cache__
+*.pyc
+*.pyo
+*.pyd
