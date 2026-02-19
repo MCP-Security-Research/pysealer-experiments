@@ -12,3 +12,5 @@ Reproducible experiments for evaluating `pysealer` against MCP security attack p
 4. Set up `uv` to run Python tooling.
 
 docker build -t pysealer-experiments .
+docker run -it pysealer-experiments bash
+uv run run_experiments.py
