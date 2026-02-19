@@ -18,6 +18,9 @@ def main():
     post_tool_poisoning = os.path.join(base_dir, "tool-poisoning", "post_tool_poisoning.py")
     post_tool_shadowing = os.path.join(base_dir, "tool-shadowing", "post_tool_shadowing.py")
 
+    print("")
+    print("Evaluating Tool Poisoning and Tool Shadowing Attacks with PySealer...")
+
     # Step 1: Run pysealer init
     print("Running pysealer init...")
     run_command("pysealer init", cwd=os.path.dirname(pre_tool_poisoning))
@@ -29,13 +32,14 @@ def main():
     run_command(f"pysealer lock {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
 
     # Step 3: Run pysealer check (no changes added)
-    print("Running pysealer check (no changes added)...")
+    print("Running pysealer check (no changes)...")
     output_pre_poisoning = run_command(f"pysealer check {pre_tool_poisoning}", cwd=os.path.dirname(pre_tool_poisoning))
     output_pre_shadowing = run_command(f"pysealer check {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
-    print("Output of pysealer check (pre-tool-poisoning):")
+    print("------------------------------------------------")
+    print("Output before Attacks:")
     print(output_pre_poisoning)
-    print("Output of pysealer check (pre-tool-shadowing):")
     print(output_pre_shadowing)
+    print("------------------------------------------------")
 
     # Step 4: Run execute scripts to perform attacks
     # this basically simulates the attacker doing their attack after the defender has locked the files
@@ -45,17 +49,19 @@ def main():
 
     # Step 5: Run pysealer check on post-attack files
     print("Running pysealer check on post-attack files...")
-    output_post_poisoning = run_command(f"pysealer check {post_tool_poisoning}", cwd=os.path.dirname(post_tool_poisoning))
-    output_post_shadowing = run_command(f"pysealer check {post_tool_shadowing}", cwd=os.path.dirname(post_tool_shadowing))
-    print("Output of pysealer check (post-tool-poisoning):")
+    output_post_poisoning = run_command(f"pysealer check {pre_tool_poisoning}", cwd=os.path.dirname(pre_tool_poisoning))
+    output_post_shadowing = run_command(f"pysealer check {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
+    print("------------------------------------------------")
+    print("Output after Attacks:")
     print(output_post_poisoning)
-    print("Output of pysealer check (post-tool-shadowing):")
     print(output_post_shadowing)
+    print("------------------------------------------------")
 
     # Step 6: Cleanup
     print("Cleaning up...")
     run_command("unset PYSEALER_ENV_VAR")  # Example environment variable
     run_command("rm -f .git/hooks/pre-commit")  # Remove pre-commit hook if added
+    print("")
 
 if __name__ == "__main__":
     main()
