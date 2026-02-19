@@ -20,6 +20,9 @@ RUN pip install --no-cache-dir --upgrade pip \
 # Pysealer==1.0.0
 RUN pip install --no-cache-dir pysealer==1.0.0
 
+# Install astor to ensure merge scripts work
+RUN pip install astor
+
 COPY pyproject.toml .
 RUN uv sync --no-dev
 
