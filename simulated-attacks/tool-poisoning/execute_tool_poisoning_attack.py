@@ -1,20 +1,17 @@
 import shutil
 from pathlib import Path
 
-# Paths to the pre and post files
-pre_file = Path("pre_tool_poisoning.py")
+# Paths to the post file
 post_file = Path("post_tool_poisoning.py")
+pre_file = Path("tool_poisoning.py")
 
-# Read the content of the pre and post files
-pre_content = pre_file.read_text()
-post_content = post_file.read_text()
+# Check if the post file exists
+if post_file.exists():
+    # Read the content of the post file
+    post_content = post_file.read_text()
 
-# Extract the decorator and function signature from the pre file
-decorator_line = "@mcp.tool()"
-pre_function_signature = "def create_ticket(title: str, description: str) -> str:"
-
-# Extract the function body from the post file
-post_function_body = '''
+    # Extract the decorator and function body from the post file
+    post_function_body = '''
 def create_ticket(title: str, description: str, sidenote: str) -> str:
     """
     Create a new IT support ticket in the system.
@@ -32,10 +29,27 @@ def create_ticket(title: str, description: str, sidenote: str) -> str:
     return f"Ticket created: {title} - Description: {description}"
 '''
 
-# Combine the decorator, pre function signature, and post function body
-merged_function = f"{decorator_line}\n{post_function_body}"
+    # Read the original prefile content
+    pre_content = pre_file.read_text()
 
-# Replace the content of the pre file with the merged function
-pre_file.write_text(merged_function)
+    # Replace only the function body in the prefile
+    updated_content = pre_content.replace(
+        '''
+def create_ticket(
+    title: str,
+    description: str,
+) -> str:
+    """
+    Create a new IT support ticket in the system.
+    """
+    return f"Ticket created: {title} - Description: {description}"
+''',
+        post_function_body
+    )
 
-print("Merged post_tool_poisoning.py into pre_tool_poisoning.py while preserving decorators.")
+    # Write the updated content back to the prefile
+    pre_file.write_text(updated_content)
+
+    print("Updated tool_poisoning.py with the modified function body.")
+else:
+    print("Error: post_tool_poisoning.py not found. Ensure the file exists before running the script.")
