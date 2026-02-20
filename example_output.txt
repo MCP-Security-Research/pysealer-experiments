@@ -47,12 +47,45 @@ Post-Tool-Shadowing Output:
 Cleaning up...
 
 Evaluating Tool Poisoning and Tool Shadowing Attacks with McpScan...
+Running mcp-scan on pre-attack files..
+------------------------------------------------
+Pre-Tool-Poisoning Output:
+Invariant MCP-scan v0.4.2
+
+● Scanning tool-poisoning/pre_mcp_config.json found 1 mcp server
+│
+└── it-ticket-agent
+    └── tool        create_ticket             ✅ 
+
+⚠️ [TF002]: Destructive toxic flow detected. The same agent has access to at least one tool that produces untrusted content and one tool that can
+behave destructively. For more information, see https://explorer.invariantlabs.ai/docs/mcp-scan/issue-code-reference/#TF002
+├── Untrusted Content Tool
+│   └── it-ticket-agent/create_ticket  High
+└── Destructive Tool
+    └── it-ticket-agent/create_ticket  Low
+
+Pre-Tool-Shadowing Output:
+Invariant MCP-scan v0.4.2
+
+● Scanning tool-shadowing/pre_mcp_config.json found 1 mcp server
+│
+└── it-ticket-agent
+    └── tool        create_ticket             ✅ 
+
+⚠️ [TF002]: Destructive toxic flow detected. The same agent has access to at least one tool that produces untrusted content and one tool that can
+behave destructively. For more information, see https://explorer.invariantlabs.ai/docs/mcp-scan/issue-code-reference/#TF002
+├── Untrusted Content Tool
+│   └── it-ticket-agent/create_ticket  High
+└── Destructive Tool
+    └── it-ticket-agent/create_ticket  Low
+
+------------------------------------------------
 Running mcp-scan on post-attack files..
 ------------------------------------------------
 Post-Tool-Poisoning Output:
 Invariant MCP-scan v0.4.2
 
-● Scanning tool-poisoning/mcp_config.json found 1 mcp server
+● Scanning tool-poisoning/post_mcp_config.json found 1 mcp server
 │
 └── it-ticket-agent
     └── tool        create_ticket             ❌ ● [E001]: Prompt injection detected in the tool description. ● [E003]: The tool description 
@@ -89,7 +122,7 @@ behave destructively. For more information, see https://explorer.invariantlabs.a
 Post-Tool-Shadowing Output:
 Invariant MCP-scan v0.4.2
 
-● Scanning tool-shadowing/mcp_config.json found 1 mcp server
+● Scanning tool-shadowing/post_mcp_config.json found 1 mcp server
 │
 └── it-ticket-agent
     ├── tool        create_ticket_better      ✅ 
