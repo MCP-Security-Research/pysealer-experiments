@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "it-ticket-agent": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "tool-shadowing",
+        "run",
+        "-m",
+        "tool_shadowing"
+      ]
+    }
+  }
+}

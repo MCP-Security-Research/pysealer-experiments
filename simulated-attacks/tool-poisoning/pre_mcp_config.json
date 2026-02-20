@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "it-ticket-agent": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "tool-poisoning",
+        "run",
+        "-m",
+        "tool_poisoning"
+      ]
+    }
+  }
+}
