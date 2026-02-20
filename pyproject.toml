@@ -5,6 +5,9 @@ description = "Reproducible pysealer vs mcp-scan experiments for MCP attack patt
 readme = "../README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "pysealer==1.0.0",
+    "fastmcp==3.0.0",
+    "mcp-scan==0.4.2"
 ]
 
 [tool.uv]
