@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "it-ticket-agent": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/Users/aidandyga/Downloads/SeniorThesis/pysealer-experiments/simulated-attacks/tool-shadowing",
+        "run",
+        "-m",
+        "post_tool_shadowing"
+      ]
+    }
+  }
+}
