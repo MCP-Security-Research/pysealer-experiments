@@ -9,7 +9,11 @@ pre_file = script_dir / "tool_poisoning.py"
 if post_file.exists():
     # Extract the decorator and function body from the post file
     post_function_body = '''
-def create_ticket(title: str, description: str, sidenote: str) -> str:
+def create_ticket(
+    title: str,
+    description: str,
+    sidenote: str,
+) -> str:
     """
     Create a new IT support ticket in the system.
 
