@@ -68,20 +68,40 @@ def main():
     print("Cleaning up...")
     run_command("unset PYSEALER_ENV_VAR")  # Example environment variable
     run_command("rm -f .git/hooks/pre-commit")  # Remove pre-commit hook if added
+    # return the tool_poisoning.py and tool_shadowing.py files to their original state
+    run_command("python tool-poisoning/unexecute_tool_poisoning_attack.py", cwd=base_dir)
+    run_command("python tool-shadowing/unexecute_tool_shadowing_attack.py", cwd=base_dir)
+    # Verify restoration
+    print("Verifying restoration of tool_poisoning.py...")
+    print(Path(pre_tool_poisoning).read_text())
+    print("Verifying restoration of tool_shadowing.py...")
+    print(Path(pre_tool_shadowing).read_text())
     print("")
 
+'''
     # Run mcp-scan on the post-attack files to see if it detects the attacks
     print("Evaluating Tool Poisoning and Tool Shadowing Attacks with McpScan...")
+    print("Running mcp-scan on pre-attack files..")
+    poisoning_pre_scan_output = run_command(f"mcp-scan scan tool-poisoning/pre_mcp_config.json", cwd=base_dir)
+    shadowing_pre_scan_output = run_command(f"mcp-scan scan tool-shadowing/pre_mcp_config.json", cwd=base_dir)
+    print("------------------------------------------------")
+    print("Pre-Tool-Poisoning Output:")
+    print(poisoning_pre_scan_output)
+    print("Pre-Tool-Shadowing Output:")
+    print(shadowing_pre_scan_output)
+    print("------------------------------------------------")
+
     print("Running mcp-scan on post-attack files..")
-    poisoning_scan_output = run_command(f"mcp-scan scan tool-poisoning/mcp_config.json", cwd=base_dir)
-    shadowing_scan_output = run_command(f"mcp-scan scan tool-shadowing/mcp_config.json", cwd=base_dir)
+    poisoning_post_scan_output = run_command(f"mcp-scan scan tool-poisoning/post_mcp_config.json", cwd=base_dir)
+    shadowing_post_scan_output = run_command(f"mcp-scan scan tool-shadowing/post_mcp_config.json", cwd=base_dir)
     print("------------------------------------------------")
     print("Post-Tool-Poisoning Output:")
-    print(poisoning_scan_output)
+    print(poisoning_post_scan_output)
     print("Post-Tool-Shadowing Output:")
-    print(shadowing_scan_output)
+    print(shadowing_post_scan_output)
     print("------------------------------------------------")
     print("")
+'''
 
 if __name__ == "__main__":
     main()
