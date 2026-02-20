@@ -17,14 +17,8 @@ RUN apt-get update \
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir uv==0.10.4
 
-# Pysealer==1.0.0
-RUN pip install --no-cache-dir pysealer==1.0.0
-
-# Install astor to ensure merge scripts work
-RUN pip install astor
-
-COPY pyproject.toml .
-RUN uv sync --no-dev
+# Install dependencies explicitly
+RUN pip install --no-cache-dir pysealer==1.0.0 fastmcp==3.0.0 mcp-scan==0.4.2
 
 COPY . .
 
