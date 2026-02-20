@@ -1,6 +1,6 @@
 # pysealer-experiments
 
-Reproducible experiments for evaluating [`pysealer`](https://pypi.org/project/pysealer/) against real-world MCP (Model Context Protocol) security attack patterns.
+Reproducible experiments for evaluating [`pysealer`](https://pypi.org/project/pysealer/) and [`mcp-scan`](https://github.com/snyk/agent-scan) against real-world MCP (Model Context Protocol) security attack patterns.
 
 ---
 
@@ -13,7 +13,8 @@ All experiments run inside a Docker container built from a pinned `python:3.14-s
 | Python | 3.14-slim | Runtime |
 | [`pysealer`](https://pypi.org/project/pysealer/) | 1.0.0 | MCP tool integrity verification |
 | [`uv`](https://github.com/astral-sh/uv) | 0.10.4 | Fast Python package and project manager |
-| [`fastmcp`](https://github.com/jlowin/fastmcp) | pinned via `pyproject.toml` | MCP server framework used by the tool files |
+| [`fastmcp`](https://github.com/jlowin/fastmcp) | 3.0.0 | MCP server framework used by the tool files |
+| [`mcp-scan`](https://github.com/snyk/agent-scan) | 0.4.2 | MCP security scanner |
 
 ## Running the Experiments
 
@@ -93,3 +94,16 @@ def create_ticket_better() -> str:
 The experiment runs `pysealer check` both before and after the attacks are applied, demonstrating:
 - **Before:** All decorators pass integrity checks (`✓`)
 - **After:** Both attacks are detected and flagged with exact diffs (`✗`)
+
+---
+
+## How `mcp-scan` Detects These Attacks
+
+`mcp-scan` analyzes the runtime behavior of MCP tools by inspecting their execution traces and comparing them against a baseline of expected behavior. It detects anomalies such as:
+
+- **Tool Poisoning:** Identifies unauthorized changes to function signatures or docstrings by comparing the runtime metadata with the original tool definitions.
+- **Tool Shadowing:** Flags tools with overlapping or conflicting names and checks for undocumented or suspicious behavior in their docstrings.
+
+The experiment demonstrates that `mcp-scan` can:
+- Detect injected parameters or altered docstrings in poisoned tools.
+- Identify shadow tools and their covert influence on legitimate tools.
