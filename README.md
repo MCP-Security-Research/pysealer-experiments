@@ -29,7 +29,7 @@ bash run_experiments.sh
 
 ```bash
 docker build -t pysealer-experiments .
-docker run -it pysealer-experiments
+docker run -it pysealer-experiments bash
 uv run run_experiments.py
 ```
 
