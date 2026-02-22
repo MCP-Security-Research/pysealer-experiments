@@ -18,20 +18,17 @@ def main():
     pre_tool_shadowing = os.path.join(base_dir, "tool-shadowing", "tool_shadowing.py")
 
     print("")
-    print("Evaluating Tool Poisoning and Tool Shadowing Attacks with PySealer...")
+    print("Evaluating Tool Poisoning and Tool Shadowing Attacks with pysealer...")
 
-    # Step 1: Run pysealer init
-    print("Running pysealer init...")
+    # Run pysealer init
     run_command("pysealer init", cwd=os.path.dirname(pre_tool_poisoning))
     run_command("pysealer init", cwd=os.path.dirname(pre_tool_shadowing))
 
-    # Step 2: Run pysealer lock
-    print("Running pysealer lock...")
+    # Run pysealer lock
     run_command(f"pysealer lock {pre_tool_poisoning}", cwd=os.path.dirname(pre_tool_poisoning))
     run_command(f"pysealer lock {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
 
-    # Step 3: Run pysealer check (no changes added)
-    print("Running pysealer check on pre-attack files..")
+    # Run pysealer check (no changes added)
     output_pre_poisoning = run_command(f"pysealer check {pre_tool_poisoning}", cwd=os.path.dirname(pre_tool_poisoning))
     output_pre_shadowing = run_command(f"pysealer check {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
     print("------------------------------------------------")
@@ -41,14 +38,12 @@ def main():
     print(output_pre_shadowing)
     print("------------------------------------------------")
 
-    # Step 4: Run execute scripts to perform attacks
+    # Run execute scripts to perform attacks
     # this basically simulates the attacker doing their attack after the defender has locked the files
-    print("Running execute scripts to perform attacks...")
     run_command("python tool-poisoning/execute_tool_poisoning_attack.py", cwd=base_dir)
     run_command("python tool-shadowing/execute_tool_shadowing_attack.py", cwd=base_dir)
 
-    # Step 5: Run pysealer check on post-attack files
-    print("Running pysealer check on post-attack files...")
+    # Run pysealer check on post-attack files
     output_post_poisoning = run_command(f"pysealer check {pre_tool_poisoning}", cwd=os.path.dirname(pre_tool_poisoning))
     output_post_shadowing = run_command(f"pysealer check {pre_tool_shadowing}", cwd=os.path.dirname(pre_tool_shadowing))
     print("------------------------------------------------")
@@ -58,30 +53,18 @@ def main():
     print(output_post_shadowing)
     print("------------------------------------------------")
 
-    # Display the content of the files after the attacks
-    # print("Contents of tool_poisoning.py after attack:")
-    # print(Path(pre_tool_poisoning).read_text())
-    # print("Contents of tool_shadowing.py after attack:")
-    # print(Path(pre_tool_shadowing).read_text())
-
-    # Step 6: Cleanup
-    print("Cleaning up...")
+    # Cleanup
     run_command("unset PYSEALER_ENV_VAR")  # Example environment variable
     run_command("rm -f .git/hooks/pre-commit")  # Remove pre-commit hook if added
     # return the tool_poisoning.py and tool_shadowing.py files to their original state
     run_command("python tool-poisoning/unexecute_tool_poisoning_attack.py", cwd=base_dir)
     run_command("python tool-shadowing/unexecute_tool_shadowing_attack.py", cwd=base_dir)
-    # Verify restoration
-    print("Verifying restoration of tool_poisoning.py...")
-    print(Path(pre_tool_poisoning).read_text())
-    print("Verifying restoration of tool_shadowing.py...")
-    print(Path(pre_tool_shadowing).read_text())
     print("")
 
-'''
     # Run mcp-scan on the post-attack files to see if it detects the attacks
-    print("Evaluating Tool Poisoning and Tool Shadowing Attacks with McpScan...")
-    print("Running mcp-scan on pre-attack files..")
+    print("Evaluating Tool Poisoning and Tool Shadowing Attacks with mcp-scan...")
+
+    # Run mcp-scan on pre-attack files
     poisoning_pre_scan_output = run_command(f"mcp-scan scan tool-poisoning/pre_mcp_config.json", cwd=base_dir)
     shadowing_pre_scan_output = run_command(f"mcp-scan scan tool-shadowing/pre_mcp_config.json", cwd=base_dir)
     print("------------------------------------------------")
@@ -91,7 +74,7 @@ def main():
     print(shadowing_pre_scan_output)
     print("------------------------------------------------")
 
-    print("Running mcp-scan on post-attack files..")
+    # Run mcp-scan on post-attack files
     poisoning_post_scan_output = run_command(f"mcp-scan scan tool-poisoning/post_mcp_config.json", cwd=base_dir)
     shadowing_post_scan_output = run_command(f"mcp-scan scan tool-shadowing/post_mcp_config.json", cwd=base_dir)
     print("------------------------------------------------")
@@ -101,7 +84,6 @@ def main():
     print(shadowing_post_scan_output)
     print("------------------------------------------------")
     print("")
-'''
 
 if __name__ == "__main__":
     main()
