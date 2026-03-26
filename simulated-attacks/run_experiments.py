@@ -61,12 +61,12 @@ def main():
     run_command("python tool-shadowing/unexecute_tool_shadowing_attack.py", cwd=base_dir)
     print("")
 
-    # Run mcp-scan on the post-attack files to see if it detects the attacks
-    print("Evaluating Tool Poisoning and Tool Shadowing Attacks with mcp-scan...")
+    # Run snyk-agent-scan on the post-attack files to see if it detects the attacks
+    print("Evaluating Tool Poisoning and Tool Shadowing Attacks with snyk-agent-scan...")
 
-    # Run mcp-scan on pre-attack files
-    poisoning_pre_scan_output = run_command(f"mcp-scan scan tool-poisoning/pre_mcp_config.json", cwd=base_dir)
-    shadowing_pre_scan_output = run_command(f"mcp-scan scan tool-shadowing/pre_mcp_config.json", cwd=base_dir)
+    # Run snyk-agent-scan on pre-attack files
+    poisoning_pre_scan_output = run_command(f"snyk-agent-scan scan tool-poisoning/pre_mcp_config.json", cwd=base_dir)
+    shadowing_pre_scan_output = run_command(f"snyk-agent-scan scan tool-shadowing/pre_mcp_config.json", cwd=base_dir)
     print("------------------------------------------------")
     print("Pre-Tool-Poisoning Output:")
     print(poisoning_pre_scan_output)
@@ -74,9 +74,9 @@ def main():
     print(shadowing_pre_scan_output)
     print("------------------------------------------------")
 
-    # Run mcp-scan on post-attack files
-    poisoning_post_scan_output = run_command(f"mcp-scan scan tool-poisoning/post_mcp_config.json", cwd=base_dir)
-    shadowing_post_scan_output = run_command(f"mcp-scan scan tool-shadowing/post_mcp_config.json", cwd=base_dir)
+    # Run snyk-agent-scan on post-attack files
+    poisoning_post_scan_output = run_command(f"snyk-agent-scan scan tool-poisoning/post_mcp_config.json", cwd=base_dir)
+    shadowing_post_scan_output = run_command(f"snyk-agent-scan scan tool-shadowing/post_mcp_config.json", cwd=base_dir)
     print("------------------------------------------------")
     print("Post-Tool-Poisoning Output:")
     print(poisoning_post_scan_output)

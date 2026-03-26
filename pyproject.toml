@@ -1,13 +1,13 @@
 [project]
 name = "pysealer-experiments"
 version = "0.1.0"
-description = "Reproducible pysealer vs mcp-scan experiments for MCP attack patterns"
+description = "Reproducible pysealer vs snyk-agent-scan experiments for MCP attack patterns"
 readme = "../README.md"
 requires-python = ">=3.14"
 dependencies = [
     "pysealer==1.0.0",
     "fastmcp==3.0.0",
-    "mcp-scan==0.4.2"
+    "snyk-agent-scan==0.4.10"
 ]
 
 [tool.uv]
