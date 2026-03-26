@@ -2,6 +2,11 @@
 
 Reproducible experiments for evaluating [`pysealer`](https://pypi.org/project/pysealer/) and [`mcp-scan`](https://github.com/snyk/agent-scan) against real-world MCP (Model Context Protocol) security attack patterns.
 
+NOTE: 
+
+- mcp-scan was renamed to synk-agent-scan
+- synk-agent-scan also requires setting up an api key and pya
+
 ---
 
 ## Reproducibility
@@ -30,7 +35,7 @@ bash run_experiments.sh
 
 ```bash
 docker build -t pysealer-experiments .
-docker run -it pysealer-experiments bash
+docker run --env-file .env -it pysealer-experiments bash
 uv run run_experiments.py
 ```
 
