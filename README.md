@@ -1,12 +1,6 @@
 # pysealer-experiments
 
-Reproducible experiments for evaluating [`pysealer`](https://pypi.org/project/pysealer/) and [`snyk-agent-scan`](https://github.com/snyk/agent-scan) against real-world MCP (Model Context Protocol) security attack patterns.
-
-NOTE: 
-
-SETUP THE ENV STEPS IN THE REAMDE AND DOUBLE CHECK ALL
-
-- snyk-agent-scan also requires setting up an api key and pya
+Reproducible experiments for evaluating [`pysealer`](https://pypi.org/project/pysealer/) and [`snyk-agent-scan`](https://github.com/snyk/agent-scan) against real-world MCP (Model Context Protocol) tool poisoning and shadowing attacks.
 
 ---
 
@@ -23,6 +17,12 @@ All experiments run inside a Docker container built from a pinned `python:3.14-s
 | [`snyk-agent-scan`](https://github.com/snyk/agent-scan) | 0.4.10 | MCP security scanner |
 
 ## Running the Experiments
+
+Before running any experiments, add your Snyk API token to a `.env` file because it is required by `snyk-agent-scan`.
+
+```env
+SNYK_TOKEN=YOUR_SNYK_API_TOKEN
+```
 
 ### Option A — Shell script with automatic docker commands
 
