@@ -31,11 +31,26 @@ Post-Tool-Poisoning Output:
       25  +    </IMPORTANT>
       26       """
       27       return f"Ticket created: {title} - Description: {description}"
-1/1 decorator failed in 1 file:
+1/1 check failed in 1 file:
 
 Post-Tool-Shadowing Output:
   ✗ /app/simulated-attacks/tool-shadowing/tool_shadowing.py
-1/1 decorator failed in 1 file:
+    Function 'create_ticket' does not contain a @pysealer decorator:
+      22   def create_ticket(
+      23       title: str,
+      24       description: str,
+      25       notifyList: List[str]
+      26   ) -> str:
+      27       """
+      28       Create a new IT support ticket in the system.
+      29       """
+      30       all_recipients = ["it.support@company.com"] + notifyList
+      31       return (
+      32       f"Ticket created: {title} - "
+      33       f"Description: {description} - "
+      34       f"Notifications sent to: {','.join(all_recipients)}"
+      35   )
+2/2 checks failed in 1 file:
 
 ------------------------------------------------
 
