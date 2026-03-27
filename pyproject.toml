@@ -5,7 +5,7 @@ description = "Reproducible pysealer vs snyk-agent-scan experiments for MCP atta
 readme = "../README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "pysealer==1.0.3",
+    "pysealer==1.0.4",
     "fastmcp==3.0.0",
     "snyk-agent-scan==0.4.10"
 ]

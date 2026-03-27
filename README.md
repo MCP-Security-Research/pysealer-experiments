@@ -11,7 +11,7 @@ All experiments run inside a Docker container built from a pinned `python:3.14-s
 | Component | Version | Role |
 |-----------|---------|------|
 | Python | 3.14-slim | Runtime |
-| [`pysealer`](https://pypi.org/project/pysealer/) | 1.0.3 | MCP tool integrity verification |
+| [`pysealer`](https://pypi.org/project/pysealer/) | 1.0.4 | MCP tool integrity verification |
 | [`uv`](https://github.com/astral-sh/uv) | 0.10.4 | Fast Python package and project manager |
 | [`fastmcp`](https://github.com/jlowin/fastmcp) | 3.0.0 | MCP server framework used by the tool files |
 | [`snyk-agent-scan`](https://github.com/snyk/agent-scan) | 0.4.10 | MCP security scanner |
