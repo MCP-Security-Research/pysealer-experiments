@@ -5,12 +5,17 @@ from pathlib import Path
 
 def run_command(command, cwd=None):
     """Run a shell command and return its output."""
-    try:
-        result = subprocess.run(command, cwd=cwd, shell=True, check=True, text=True, capture_output=True)
-        return result.stdout
-    except subprocess.CalledProcessError as e:
-        combined_output = "".join(part for part in [e.stdout, e.stderr] if part)
-        return combined_output if combined_output else None
+    # Capture both streams as one so message order matches what the command emitted.
+    result = subprocess.run(
+        command,
+        cwd=cwd,
+        shell=True,
+        check=False,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    return result.stdout
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
