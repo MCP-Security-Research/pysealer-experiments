@@ -23,13 +23,14 @@ def create_ticket_better() -> str:
     # Read the original prefile content
     pre_content = pre_file.read_text()
 
-    # Find the position to insert the new function
-    insertion_point = pre_content.find("@mcp.tool()\ndef create_ticket(")
+    # Insert the shadowing tool before the main guard so existing decorator stacks remain intact.
+    insertion_anchor = '\nif __name__ == "__main__":'
+    insertion_point = pre_content.find(insertion_anchor)
     if insertion_point == -1:
-        print("Error: expected create_ticket tool definition not found in tool_shadowing.py.")
+        print("Error: expected __main__ guard not found in tool_shadowing.py.")
         raise SystemExit(1)
 
-    updated_content = pre_content[:insertion_point] + post_function_body + '\n' + pre_content[insertion_point:]
+    updated_content = pre_content[:insertion_point] + "\n" + post_function_body + pre_content[insertion_point:]
 
     # Write the updated content back to the prefile
     pre_file.write_text(updated_content)
