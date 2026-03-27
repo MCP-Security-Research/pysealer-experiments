@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir uv==0.10.4
 
 # Install dependencies explicitly
-RUN pip install --no-cache-dir pysealer==1.0.2 fastmcp==3.0.0 snyk-agent-scan==0.4.10
+RUN pip install --no-cache-dir pysealer==1.0.3 fastmcp==3.0.0 snyk-agent-scan==0.4.10
 
 COPY . .
 
